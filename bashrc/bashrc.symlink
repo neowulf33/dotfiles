@@ -1,0 +1,9 @@
+. /Users/siva/.personal/bashrc/personal_bashrc.sh
+
+export PATH="/Users/siva/bin:$PATH"
+
+# http://docs.basho.com/riak/2.0.2/ops/tuning/open-files-limit/#Mac-OS-X
+ulimit -n 65536
+ulimit -u 2048
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

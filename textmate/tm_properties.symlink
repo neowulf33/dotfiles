@@ -1,0 +1,42 @@
+# https://gist.github.com/dvessel/1478685
+# https://github.com/textmate/textmate/wiki/FAQ
+# http://wiki.macromates.com/Reference/Settings
+# http://hiltmon.com/blog/2013/04/15/my-textmate-2-setup/
+
+# /Applications/TextMate.app/Contents/Resources/Default.tmProperties
+exclude = "{$exclude,target}"
+
+# Settings
+
+encoding         = UTF-8
+fontName         = "Menlo"
+fontSize         = 11
+lineEndings      = '\n'
+showInvisibles   = true
+softWrap         = true
+softTabs         = false
+tabSize          = 4
+spellChecking    = false
+
+# Now using CombinedCasts theme (of course)
+
+#theme            = 570BB45C-486D-44A6-8683-CFE4F63CE651
+
+# Hide log, vendor and tmp directories from search popups.
+
+myExtraExcludes = "log,vendor,tmp"
+excludeInFileChooser  = "{$excludeInFileChooser,$myExtraExcludes}" 
+excludeInFolderSearch = "{$excludeInFolderSearch,$myExtraExcludes}" 
+fileBrowserGlob  = "{*,.tm_properties,.htaccess}"
+
+# Variables
+
+PATH   = "$PATH:$HOME/Scripts"
+TM_GIT = "/usr/bin/git"
+TM_RUBY = "/Users/siva/.rvm/rubies/ruby-2.1.0/bin/ruby"
+
+[ text ]
+spellChecking    = true
+wrapColumn       = "Use Window Frame"
+softTabs         = true
+tabSize          = 2

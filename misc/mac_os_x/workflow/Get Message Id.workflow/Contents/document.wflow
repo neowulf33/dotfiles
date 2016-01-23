@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>247.1</string>
+	<key>AMApplicationVersion</key>
+	<string>2.1.1</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.mail.message-object</string>
+						<string>com.apple.mail.mailbox-object</string>
+						<string>com.apple.mail.account-object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>2.0</string>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>itemType</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.mail.message-object</string>
+						<string>com.apple.mail.mailbox-object</string>
+						<string>com.apple.mail.account-object</string>
+					</array>
+				</dict>
+				<key>AMRequiredResources</key>
+				<array/>
+				<key>AMSelectedInputType</key>
+				<string>com.apple.mail.message-object</string>
+				<key>AMSelectedOutputType</key>
+				<string>com.apple.mail.message-object</string>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Get Selected Mail Items 2.action</string>
+				<key>ActionName</key>
+				<string>Get Selected Mail Messages</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>itemType</key>
+					<string>com.apple.mail.message-object</string>
+				</dict>
+				<key>Application</key>
+				<array>
+					<string>Mail</string>
+				</array>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.Get_Selected_Mail_Items_2</string>
+				<key>CFBundleVersion</key>
+				<string>2.0</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryMail</string>
+				</array>
+				<key>Class Name</key>
+				<string>Get_Selected_Mail_Items_2</string>
+				<key>InputUUID</key>
+				<string>29DD0978-CAA5-4617-B809-9A30B657B9D2</string>
+				<key>Keywords</key>
+				<array/>
+				<key>OutputUUID</key>
+				<string>C6447D7A-29E6-4947-A495-22E7FD8E94C9</string>
+				<key>UUID</key>
+				<string>4071BA23-B9BA-4281-9525-CE764CA3714C</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Mail</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>com.apple.mail.message-object</string>
+						<key>name</key>
+						<string>itemType</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>309.500000:808.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Get Selected Mail Items 2.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0</string>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run {input, parameters}	
+	tell application "Mail"
+    set _sel to selection
+    set _links to {}
+
+    set the _message to item 1 ¬
+        of the _sel
+    set theSubject to subject of _message
+    set message_id to the message id of the _message
+end tell
+
+set message_url to "message://%3c" &amp; message_id &amp; "%3e"
+set end of _links to message_url
+set the clipboard to (_links as string)
+	return inputend run</string>
+				</dict>
+				<key>Application</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>F27E66C8-6931-4409-B72D-AB59CF50B0A2</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>4E55CB32-55DE-4C84-94FF-344571ABE76F</string>
+				<key>UUID</key>
+				<string>141CB5C4-B26F-450F-9ED2-746C09E60933</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>309.500000:485.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict>
+		<key>E4B74667-8521-4F9E-951D-65B913BC1C03</key>
+		<dict>
+			<key>from</key>
+			<string>4071BA23-B9BA-4281-9525-CE764CA3714C - 4071BA23-B9BA-4281-9525-CE764CA3714C</string>
+			<key>to</key>
+			<string>141CB5C4-B26F-450F-9ED2-746C09E60933 - 141CB5C4-B26F-450F-9ED2-746C09E60933</string>
+		</dict>
+	</dict>
+	<key>state</key>
+	<dict>
+		<key>AMLogTabViewSelectedIndex</key>
+		<integer>0</integer>
+		<key>libraryState</key>
+		<dict>
+			<key>actionsMajorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 381.000000, 868.000000, NO</string>
+					<string>0.000000, 869.000000, 381.000000, 140.000000, NO</string>
+				</array>
+			</dict>
+			<key>actionsMinorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 163.000000, 868.000000, NO</string>
+					<string>164.000000, 0.000000, 217.000000, 868.000000, NO</string>
+				</array>
+			</dict>
+			<key>variablesMajorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 350.000000, 555.000000, NO</string>
+					<string>0.000000, 556.000000, 350.000000, 148.000000, NO</string>
+				</array>
+			</dict>
+			<key>variablesMinorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 163.000000, 555.000000, NO</string>
+					<string>164.000000, 0.000000, 186.000000, 555.000000, NO</string>
+				</array>
+			</dict>
+		</dict>
+		<key>majorSplitViewState</key>
+		<dict>
+			<key>expandedPosition</key>
+			<real>0.0</real>
+			<key>subviewState</key>
+			<array>
+				<string>0.000000, 0.000000, 381.000000, 1054.000000, NO</string>
+				<string>382.000000, 0.000000, 619.000000, 1054.000000, NO</string>
+			</array>
+		</dict>
+		<key>minorSplitViewState</key>
+		<dict>
+			<key>expandedPosition</key>
+			<real>0.0</real>
+			<key>subviewState</key>
+			<array>
+				<string>0.000000, 0.000000, 619.000000, 863.000000, NO</string>
+				<string>0.000000, 873.000000, 619.000000, 162.000000, NO</string>
+			</array>
+		</dict>
+		<key>windowFrame</key>
+		<string>{{752, 0}, {1000, 1131}}</string>
+		<key>workflowViewScrollPosition</key>
+		<string>{{0, 0}, {619, 863}}</string>
+	</dict>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string>com.apple.mail</string>
+		<key>serviceApplicationPath</key>
+		<string>/Applications/Mail.app</string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>

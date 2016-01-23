@@ -1,4 +1,93 @@
-syntax on
+" To install vundle plugins
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" vim +PluginInstall +qall
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+" Sends commands to a tmux pane
+Plugin 'jpalardy/vim-slime'
+" Clojure plugin
+Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
+" Clojure repl support - inline repl
+Plugin 'tpope/vim-fireplace'
+" Syntax
+Plugin 'kien/rainbow_parentheses.vim'
+" Stores current session
+Plugin 'tpope/vim-obsession'
+
+
+
+Bundle 'wakatime/vim-wakatime'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"
+set number
+
+" Look and feel {{{
+syntax enable
+set background=dark
+" colorscheme solarized
+
+" size of a hard tabstop
+set tabstop=4
+
+" size of an "indent"
+set shiftwidth=4
+
+" a combination of spaces and tabs are used to simulate tab stops at a width
+" other than the (hard)tabstop
+set softtabstop=4
+
+" make "tab" insert indents instead of tabs at the beginning of a line
+set smarttab
+
+" always uses spaces instead of tab characters
+set expandtab
+
+" Remap esc to jk
+inoremap jk <ESC>
+
+" Clojure options.
+let g:slime_target = "tmux"
+
+autocmd Syntax clojure RainbowParenthesesLoadRound
+autocmd BufEnter *.clj RainbowParenthesesToggle
+autocmd BufLeave *.clj RainbowParenthesesToggle
+
+let g:rbpt_colorpairs = [
+    \ ['magenta',     'purple1'],
+    \ ['cyan',        'magenta1'],
+    \ ['green',       'slateblue1'],
+    \ ['yellow',      'cyan1'],
+    \ ['red',         'springgreen1'],
+    \ ['magenta',     'green1'],
+    \ ['cyan',        'greenyellow'],
+    \ ['green',       'yellow1'],
+    \ ['yellow',      'orange1'],
+    \ ]
+let g:rbpt_max = 9
+
+
