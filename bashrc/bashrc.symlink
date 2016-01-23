@@ -1,4 +1,4 @@
-. /Users/siva/.personal/bashrc/personal_bashrc.sh
+. $HOME/.dotfiles/bashrc/personal_bashrc.sh
 
 export PATH="/Users/siva/bin:$PATH"
 
