@@ -7,5 +7,4 @@ atom.symlink/packages
 atom.symlink/storage
 atom.symlink/themes
 
-git/gitconfig.symlink
 .vagrant
