@@ -1,10 +1,16 @@
 # Our .tmux.conf file
+#
+# tmux source-file ~/.tmux.conf
+# prefix :source-file ~/.tmux.conf
 
 set-option -g history-limit 100000
 
+# Xterm - http://how-to.wikia.com/wiki/How_to_use_short-cut_keys_in_xterm_and_other_terminals
+# set-option -gw xterm-keys on
+
 # Setting the prefix from C-b to C-a
 # START:prefix
-set -g prefix C-a  
+set -g prefix C-f  
 # END:prefix
 
 # Free the original Ctrl-b prefix keybinding
@@ -19,7 +25,7 @@ set -s escape-time 1
 
 # Ensure that we can send Ctrl-A to other apps
 # START:bind_prefix
-bind C-a send-prefix
+bind C-f send-prefix
 # END:bind_prefix
 
 # Set the base index for windows to 1 instead of 0
@@ -127,7 +133,7 @@ set -g status-utf8 on
 # Status line right side
 # 15% | 28 Nov 18:15
 # START: statusright
-set -g status-right "#(~/battery Discharging) | #[fg=cyan]%d %b %R"
+set -g status-right "#[fg=green]#(date -u | awk '{print $4}' | cut -d ':' -f 1-2) | #[fg=cyan]%d %b %R"
 # END:statusright
 
 # Update the status bar every sixty seconds
@@ -147,7 +153,7 @@ setw -g mode-keys vi
 
 # shortcut for synchronize-panes toggle
 # START:sync
-bind C-s set-window-option synchronize-panes
+bind C-S set-window-option synchronize-panes
 # END:sync
 
 # Maximize and restore a pane. Only needed for 1.7 and lower.

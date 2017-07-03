@@ -7,8 +7,9 @@ PERSONAL_DIR="$(cd "${CUR_DIR}" && cd .. && pwd )"
 
 . ${CUR_DIR}/bash_aliases.sh
 
-. ${CUR_DIR}/functions.sh
-
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
+fi
 . ${CUR_DIR}/docker.sh
 
 #. ${CUR_DIR}/python.sh
@@ -50,19 +51,15 @@ export LESS="-XgmR"
 ###############################
 
 if [ $(uname) == "Darwin" ]; then
-	#export EDITOR='mate -w'
 	export EDITOR='vim'
-	#export JAVA_HOME=$(/usr/libexec/java_home)
-    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_76.jdk/Contents/Home"
-	export GROOVY_HOME="/usr/local/Cellar/groovy/2.1.1/libexec"
+	export JAVA_HOME=$(/usr/libexec/java_home)
+    export GROOVY_HOME="/usr/local/Cellar/groovy/2.1.1/libexec"
 	export GIT_EDITOR="mate -w -l 1"
 	export M3_HOME="/usr/local/Cellar/maven/3.2.3"
-    export PATH="${M2_HOME}:${PERSONAL_DIR}/bin/mac_os_x:${PERSONAL_DIR}/bin/git:${PATH}"
-	export SCALA_HOME="/usr/local/opt/scala/idea"
+    export PATH="${PERSONAL_DIR}/bin/mac_os_x:${PERSONAL_DIR}/bin/git:${PATH}"
 else
     export EDITOR="vi"
 	export SVN_EDITOR="vi"
-	export JAVA_HOME="/usr/lib/jvm/java-6-sun"
 fi
 
 export MAVEN_OPTS="-Xms128m -Xmx512m"
