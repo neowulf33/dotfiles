@@ -2,20 +2,23 @@
 #
 # tmux source-file ~/.tmux.conf
 # prefix :source-file ~/.tmux.conf
+# Update tmux plugins - prefix + U
 
 set-option -g history-limit 100000
+set -g default-shell /bin/bash
+set -g default-command "reattach-to-user-namespace -l /usr/local/bin/fish"
 
 # Xterm - http://how-to.wikia.com/wiki/How_to_use_short-cut_keys_in_xterm_and_other_terminals
 # set-option -gw xterm-keys on
 
 # Setting the prefix from C-b to C-a
 # START:prefix
-set -g prefix C-f  
+set -g prefix C-f
 # END:prefix
 
 # Free the original Ctrl-b prefix keybinding
 # START:unbind
-unbind C-b 
+unbind C-b
 # END:unbind
 
 #setting the delay between prefix and command
@@ -27,6 +30,11 @@ set -s escape-time 1
 # START:bind_prefix
 bind C-f send-prefix
 # END:bind_prefix
+
+# clear the current pane
+# START:history
+bind C-k clear-history  \; send-keys C-l
+# START:history
 
 # Set the base index for windows to 1 instead of 0
 # START:index
@@ -46,10 +54,10 @@ bind - split-window -v -c "#{pane_current_path}"
 
 # moving between panes
 # START:paneselect
-bind h select-pane -L 
-bind j select-pane -D 
+bind h select-pane -L
+bind j select-pane -D
 bind k select-pane -U
-bind l select-pane -R    
+bind l select-pane -R
 # END:paneselect
 
 # Quick pane selection
@@ -60,19 +68,19 @@ bind -r C-l select-window -t :+
 
 # Pane resizing
 # START:paneresize
-bind -r H resize-pane -L 5 
-bind -r J resize-pane -D 5 
-bind -r K resize-pane -U 5 
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
 bind -r L resize-pane -R 5
 # END:paneresize
 
 # mouse support - set to on if you want to use the mouse
 # START:mouse
-setw -g mode-mouse off 
+#setw -g mode-mouse off
 # END:mouse
-set -g mouse-select-pane off 
-set -g mouse-resize-pane off 
-set -g mouse-select-window off
+#set -g mouse-select-pane off
+#set -g mouse-resize-pane off
+#set -g mouse-select-window off
 
 # Set the default terminal mode to 256color mode
 # START:termcolor
@@ -93,15 +101,15 @@ set -g status-bg black
 
 # set the color of the window list
 # START:windowstatuscolor
-setw -g window-status-fg cyan 
-setw -g window-status-bg default 
+setw -g window-status-fg cyan
+setw -g window-status-bg default
 setw -g window-status-attr dim
 # END:windowstatuscolor
 
 # set colors for the active window
 # START:activewindowstatuscolor
-setw -g window-status-current-fg white 
-setw -g window-status-current-bg red 
+setw -g window-status-current-fg white
+setw -g window-status-current-bg red
 setw -g window-status-current-attr bright
 # END:activewindowstatuscolor
 
@@ -122,12 +130,12 @@ set -g message-attr bright
 
 # Status line left side
 # START:statusleft
-set -g status-left-length 40 
+set -g status-left-length 40
 set -g status-left "#[fg=green]Session: #S #[fg=yellow]#I #[fg=cyan]#P"
 # END:statusleft
 
 #START:utf8
-set -g status-utf8 on
+#set -g status-utf8 on
 #END:utf8
 
 # Status line right side
@@ -153,8 +161,19 @@ setw -g mode-keys vi
 
 # shortcut for synchronize-panes toggle
 # START:sync
-bind C-S set-window-option synchronize-panes
+bind C-w set-window-option synchronize-panes
 # END:sync
+
+# http://kaushalmodi.github.io/2014/03/06/send-a-command-to-every-pane-slash-window-slash-session-in-tmux/
+# Send the same command to all panes/windows/sessions
+# START:send
+bind  E command-prompt -p "Command:" \
+          "run \"tmux list-sessions                  -F '##{session_name}'        | xargs -I SESS \
+                 tmux list-windows  -t SESS          -F 'SESS:##{window_index}'   | xargs -I SESS_WIN \
+                 tmux list-panes    -t SESS_WIN      -F 'SESS_WIN.##{pane_index}' | xargs -I SESS_WIN_PANE \
+                 tmux send-keys     -t SESS_WIN_PANE '%1' Enter\""
+# END:send
+
 
 # Maximize and restore a pane. Only needed for 1.7 and lower.
 # START:max
@@ -184,11 +203,13 @@ set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-save-bash-history 'on'
 
 # To install plugins - <prefix> + I
+# To update plugins - <prefix> + U
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-yank'
 
 # Automatic tpm installation
 if "test ! -d ~/.tmux/plugins/tpm" \

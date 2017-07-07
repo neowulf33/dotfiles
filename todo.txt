@@ -1,0 +1,2 @@
+* Install OMF
+* Install most - https://leanpub.com/the-tao-of-tmux/read#leanpub-auto-read-the-tmux-manual-in-style

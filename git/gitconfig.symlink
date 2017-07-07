@@ -1,0 +1,63 @@
+[core]
+  excludesfile = /Users/siva/.gitignore_global
+  autocrlf = input
+  editor = vim
+
+[diff]
+  submodule = log
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Users/siva/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[alias]
+  # list aliases
+  la = "!git config -l | grep alias | cut -c 7-"
+
+  # git reauthor $START..$END
+  reauthor = !sh -c 'eval `git log --reverse --topo-order --pretty=format:\"git cherry-pick %H &&  git commit --amend -C %H --author=\\\"%aN <%aE>\\\" && \" $0 ` "echo success" '
+
+  ## http://blog.tfnico.com/2010/11/git-svn-mirror-for-multiple-branches.html
+  upci = !git update-ref refs/remotes/$(git branch | grep '^*' | awk '{print $2}') refs/remotes/origin/$(git branch|grep '^*'|awk '{print $2}') && git svn dcommit
+  ## http://www.jukie.net/bart/blog/pimping-out-git-log
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
+  di = diff --color-words=.
+  pu = !"git fetch origin -v; git fetch upstream -v; git merge upstream/master"
+
+  branch-name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
+  cd-root = rev-parse --show-cdup
+  svn-branch-patch = !git-svn-diff > `git cd-root``git branch-name`.patch
+  dont-commit-changelist = update-index --assume-unchanged
+
+  #######
+  # https://gist.github.com/492227
+  p = !"git add -A; git ls-files --deleted -z | xargs -0 git rm; git commit -m \"wip\""
+  unwip = !"git log -n 1 | grep -q -c wip && git reset HEAD~1"
+  rb = !"git wip;git rebase -i origin/master;git unwip"
+  pr = !"git fetch;git wip;git rebase --stat origin;git unwip;git heads"
+  head = !"git log -n1"
+  lost = !"git fsck | awk '/dangling commit/ {print $3}' | git show --format='SHA1: %C(yellow)%h%Creset %f' --stdin | awk '/SHA1/ {sub(\"SHA1: \", \"\"); print}'"
+  heads = !"git log origin/master.. --format='%Cred%h%Creset;%C(yellow)%an%Creset;%H;%Cblue%f%Creset' | git name-rev --stdin --always --name-only | column -t -s';'"
+
+  ######
+  # Experimental
+  #sudo ln -s  /Users/sivakom/Documents/opensource/personal/binscripts/git-svn-diff.sh /usr/local/bin/git-svn-diff
+  ff-mirror = merge --ff-only refs/remotes/mirror/`git branch-name`
+  renamelg = !"git filter-branch --commit-filter ' \n        if [ \"\" = \"neowulf33\" ]; \n        then \n                GIT_COMMITTER_NAME=\"Siva Kommuri\"; \n                GIT_AUTHOR_NAME=\"Siva Kommuri\"; \n                GIT_COMMITTER_EMAIL=\"siva.kommuri@lge.com\"; \n                GIT_AUTHOR_EMAIL=\"siva.kommuri@lge.com\"; \n                git commit-tree \"\"; \n        else \n                git commit-tree \"\"; \n        fi' HEAD"
+
+    plrm = !"echo \"http://mod.lge.com/code/projects/FIM/repos/$(basename "$PWD")/pull-requests?create&targetBranch=refs%2Fheads%2Fsignage-sprint-10&sourceBranch=refs%2Fheads%2F$(git branch-name)\""
+
+[push]
+  default = simple
+
+[color]
+  ui = auto
+
+[commit]
+  template = /Users/siva/.stCommitMsg
+[credential]
+	UseHttpPath = true
+	helper = !aws codecommit credential-helper $@
