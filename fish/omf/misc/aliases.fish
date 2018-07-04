@@ -1,15 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env fish
 
-CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PERSONAL_DIR="$(cd "${CUR_DIR}" && cd .. && pwd )"
+set DIR (cd (dirname (status -f)); and pwd) 
 
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ $(uname) == "Darwin" ]; then
-	alias "ij=open -a /Applications/IntelliJ\ IDEA\ 13.app"
+if [ (uname) == "Darwin" ]
+	alias "ij=open -a /Applications/IntelliJ\ IDEA*.app"
 	alias ls='ls -G'
 else
 	alias ls='ls --color=auto'
-fi
+end
 
 alias grep="grep --color --exclude=\*.svn\*"
 
@@ -17,7 +16,8 @@ alias pj="python -mjson.tool"
 alias pp="lsof -i -P"
 alias sortdirs="du -k * | sort -n -r | head -n 20"
 alias sumdirs="du -k -s * | sort -k1 -g -r"
-alias vi="vim -u ${PERSONAL_DIR}/configs/vim/vimrc"
+
+alias vi="vim -u {$DIR}/../vim/vimrc"
 
 alias activator="activator -mem 512"
 

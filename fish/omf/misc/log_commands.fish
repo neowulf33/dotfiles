@@ -1,3 +1,5 @@
+#!/usr/bin/env fish
+
 # https://spin.atomicobject.com/2016/05/28/log-bash-history/
 # http://stackoverflow.com/q/38485384/1216965
 
